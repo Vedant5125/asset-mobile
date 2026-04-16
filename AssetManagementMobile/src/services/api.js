@@ -1,11 +1,14 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Real backend URL on Render
-const API_URL = 'https://asset-mobile-1.onrender.com/api';
+// Prefer local env (EXPO_PUBLIC_API_URL) so cloned projects can point to local backend.
+// Falls back to hosted API to preserve existing behavior if env is not set.
+const API_URL =
+    process.env.EXPO_PUBLIC_API_URL?.replace(/\/$/, '') ||
+    'https://asset-mobile-1.onrender.com/api';
 
 const api = axios.create({
-    baseURL: 'https://asset-mobile-1.onrender.com/api',
+    baseURL: API_URL,
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',

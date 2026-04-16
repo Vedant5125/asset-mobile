@@ -52,9 +52,19 @@ npm start
 ```bash
 cd backend
 npm install
-# Configure .env file
+# Configure backend/.env
+# Required: MONGO_URI=<your mongodb connection string>
+# Optional: MONGODB_URI=<fallback name also supported>
 npm run dev
 ```
+
+### 3. Frontend API Configuration (important for local signup)
+```bash
+cd AssetManagementMobile
+# Create/update .env and point app to your local backend
+EXPO_PUBLIC_API_URL=http://<your-local-ip>:3000/api
+```
+If `EXPO_PUBLIC_API_URL` is not set, the app defaults to the hosted Render API.
 
 ---
 
