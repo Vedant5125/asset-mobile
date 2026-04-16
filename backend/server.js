@@ -167,7 +167,12 @@ setTimeout(fetchWeather, 2000);
 
 const connectDB = async () => {
     try {
-        const connectionInstance = await mongoose.connect(process.env.MONGO_URI);
+        const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
+        if (!mongoUri) {
+            throw new Error("Missing MongoDB connection string. Set MONGO_URI (or MONGODB_URI) in backend/.env");
+        }
+
+        const connectionInstance = await mongoose.connect(mongoUri);
         console.log(`MongoDB connected with Host: ${connectionInstance.connection.host}`)
     } catch (error) {
         console.log("Error connecting to MongoDB", error);
